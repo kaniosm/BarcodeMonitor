@@ -22,8 +22,10 @@ namespace BarcodeMonitor
         {
             try
             {
-                if(File.Exists("barcodes.xml"))
-                    bmDataSet.ReadXml("barcodes.xml");
+                string barcodesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BarcodeMonitor");
+                if (!Directory.Exists(barcodesPath)) Directory.CreateDirectory(barcodesPath);
+                if (File.Exists($"{barcodesPath}\\barcodes.xml"))
+                    bmDataSet.ReadXml($"{barcodesPath}\\barcodes.xml");
                 dataGridView1.DataSource = bmDataSet.Barcode;
             }
             catch (Exception ex)
@@ -36,7 +38,9 @@ namespace BarcodeMonitor
         {
             try
             {
-                bmDataSet.WriteXml("barcodes.xml");
+                string barcodesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BarcodeMonitor");
+                if (!Directory.Exists(barcodesPath)) Directory.CreateDirectory(barcodesPath);
+                bmDataSet.WriteXml($"{barcodesPath}\\barcodes.xml");
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

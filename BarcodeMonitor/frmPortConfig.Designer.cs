@@ -43,6 +43,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.chReplaceBarcode = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -218,11 +219,25 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // chReplaceBarcode
+            // 
+            this.chReplaceBarcode.AutoSize = true;
+            this.chReplaceBarcode.Checked = true;
+            this.chReplaceBarcode.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chReplaceBarcode.Location = new System.Drawing.Point(534, 375);
+            this.chReplaceBarcode.Name = "chReplaceBarcode";
+            this.chReplaceBarcode.Size = new System.Drawing.Size(192, 34);
+            this.chReplaceBarcode.TabIndex = 15;
+            this.chReplaceBarcode.Text = "Replace barcode";
+            this.chReplaceBarcode.UseVisualStyleBackColor = true;
+            this.chReplaceBarcode.CheckedChanged += new System.EventHandler(this.chReplaceBarcode_CheckedChanged);
+            // 
             // frmPortConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(776, 567);
+            this.Controls.Add(this.chReplaceBarcode);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label6);
@@ -265,5 +280,6 @@
         private Label label6;
         private TextBox textBox1;
         private Button btnSave;
+        private CheckBox chReplaceBarcode;
     }
 }

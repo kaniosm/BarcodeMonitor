@@ -22,7 +22,9 @@ namespace BarcodeMonitor
 
         public MyApplicationContext()
         {
-            if(File.Exists("barcodes.xml")) bmDataSet.ReadXml("barcodes.xml");
+            string barcodesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BarcodeMonitor");
+            if (!Directory.Exists(barcodesPath)) Directory.CreateDirectory(barcodesPath);
+            if (File.Exists($"{barcodesPath}\\barcodes.xml")) bmDataSet.ReadXml($"{barcodesPath}\\barcodes.xml");
             trayIcon = new NotifyIcon()
             {
                 Icon = Resources.BarcodeMonitor,
@@ -51,14 +53,14 @@ namespace BarcodeMonitor
                         if (c != '\r')
                         {
                             line += c;
-                            SendKeys.SendWait("{BACKSPACE}");
+                            if (Settings.Default.ReplaceBarcode) SendKeys.SendWait("{BACKSPACE}");
                         }
                         else
                         {
-                            SendKeys.SendWait("{BACKSPACE}");
+                            if (Settings.Default.ReplaceBarcode) SendKeys.SendWait("{BACKSPACE}");
                             var mapp = bmDataSet.Barcode.AsEnumerable().FirstOrDefault(b => b.Barcode == line.TrimEnd());
-                            Clipboard.SetText($"You scanned: {line}, we mached: {mapp?.ItemCode ?? ""}");
-                            SendKeys.SendWait(mapp?.ItemCode);
+                            Clipboard.SetText(mapp?.ItemCode);
+                            if(Settings.Default.ReplaceBarcode) SendKeys.SendWait(mapp?.ItemCode);
                             line = "";
                         }
                     }
@@ -92,11 +94,13 @@ namespace BarcodeMonitor
 
         private void EditBarcodes(object? sender, EventArgs e)
         {
+            string barcodesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "BarcodeMonitor");
+            if (!Directory.Exists(barcodesPath)) Directory.CreateDirectory(barcodesPath);
             frmBarcodes frm = new frmBarcodes();
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 bmDataSet.Clear();
-                bmDataSet.ReadXml("barcodes.xml");
+                bmDataSet.ReadXml($"{barcodesPath}\\barcodes.xml");
             }
         }
 
@@ -140,8 +144,12 @@ namespace BarcodeMonitor
             {
                 line = line.Substring(0, idx);
                 var mapp = bmDataSet.Barcode.AsEnumerable().FirstOrDefault(b => b.Barcode == line.TrimEnd());
-                Clipboard.SetText($"You scanned: {line}, we mached: {mapp?.ItemCode ?? ""}");
-                SendKeys.SendWait(mapp?.ItemCode);
+                Clipboard.SetText(mapp?.ItemCode);
+                if (Settings.Default.ReplaceBarcode)
+                {
+                    foreach(var c in line) SendKeys.SendWait("{BACKSPACE}");
+                    SendKeys.SendWait(mapp?.ItemCode);
+                }
                 //_scanBuffer += line;
                 //Invoke((MethodInvoker)delegate { OnScan(_scanBuffer); });
                 //_scanBuffer = "";

@@ -32,6 +32,8 @@ namespace BarcodeMonitor
 
                 btnSave.Enabled = Properties.Settings.Default.UseUsbScanner;
                 textBox1.Text = Properties.Settings.Default.UsbScanner;
+                chReplaceBarcode.Checked = Properties.Settings.Default.ReplaceBarcode;
+
                 if (textBox1.Text == "") textBox1.Text = "Use your scanner to detect the device";
                 var rawinput = new RawInput.RawInput(this.Handle, true);
                 rawinput.AddMessageFilter();
@@ -75,6 +77,11 @@ namespace BarcodeMonitor
             Properties.Settings.Default.Save();
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void chReplaceBarcode_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ReplaceBarcode = chReplaceBarcode.Checked;
         }
     }
 }
