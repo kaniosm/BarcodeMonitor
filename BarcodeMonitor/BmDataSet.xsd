@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="BmDataSet" targetNamespace="http://tempuri.org/BmDataSet.xsd" xmlns:mstns="http://tempuri.org/BmDataSet.xsd" xmlns="http://tempuri.org/BmDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="BmDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="BmDataSet" msprop:Generator_DataSetName="BmDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Barcode" msprop:Generator_RowEvHandlerName="BarcodeRowChangeEventHandler" msprop:Generator_RowDeletedName="BarcodeRowDeleted" msprop:Generator_RowDeletingName="BarcodeRowDeleting" msprop:Generator_RowEvArgName="BarcodeRowChangeEvent" msprop:Generator_TablePropName="Barcode" msprop:Generator_RowChangedName="BarcodeRowChanged" msprop:Generator_RowChangingName="BarcodeRowChanging" msprop:Generator_TableClassName="BarcodeDataTable" msprop:Generator_RowClassName="BarcodeRow" msprop:Generator_TableVarName="tableBarcode" msprop:Generator_UserTableName="Barcode">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Barcode" msprop:Generator_ColumnPropNameInRow="Barcode" msprop:Generator_ColumnPropNameInTable="BarcodeColumn" msprop:Generator_ColumnVarNameInTable="columnBarcode" msprop:Generator_UserColumnName="Barcode" type="xs:string" minOccurs="0" />
+              <xs:element name="ItemCode" msprop:Generator_ColumnPropNameInRow="ItemCode" msprop:Generator_ColumnPropNameInTable="ItemCodeColumn" msprop:Generator_ColumnVarNameInTable="columnItemCode" msprop:Generator_UserColumnName="ItemCode" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
