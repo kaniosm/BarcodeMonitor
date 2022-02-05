@@ -59,8 +59,12 @@ namespace BarcodeMonitor
                         {
                             if (Settings.Default.ReplaceBarcode) SendKeys.SendWait("{BACKSPACE}");
                             var mapp = bmDataSet.Barcode.AsEnumerable().FirstOrDefault(b => b.Barcode == line.TrimEnd());
-                            Clipboard.SetText(mapp?.ItemCode);
-                            if(Settings.Default.ReplaceBarcode) SendKeys.SendWait(mapp?.ItemCode);
+                            Clipboard.SetText(mapp?.ItemCode ?? "NA");
+                            if (Settings.Default.ReplaceBarcode)
+                            {
+                                SendKeys.SendWait("{ESC}");
+                                SendKeys.SendWait(mapp?.ItemCode);
+                            }
                             line = "";
                         }
                     }
