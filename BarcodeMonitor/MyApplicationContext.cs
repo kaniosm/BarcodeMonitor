@@ -43,11 +43,19 @@ namespace BarcodeMonitor
             {
                 string line = ""; 
                 var rawInput = new RawInput.RawInput(new Form().Handle, false);
-                //rawInput.AddMessageFilter();
+                rawInput.AddMessageFilter();
+                DateTime lastMsg = DateTime.Now;
+                HookManager.KeyPress += (s, e) =>
+                {
+                    //Thread.Sleep(1000);
+                    if((DateTime.Now - lastMsg) < TimeSpan.FromMilliseconds(1000) && e.KeyChar == (char)13)
+                        e.Handled = true;
+                };
                 rawInput.KeyPressed += (s, e) => 
                 {
                     if( e.KeyPressEvent.DeviceName == Settings.Default.UsbScanner && e.KeyPressEvent.KeyPressState == "MAKE")
                     {
+                        lastMsg = DateTime.Now;
                         char c = (char)e.KeyPressEvent.VKey;
                         if (c == '\b') return;
                         if (c != '\r')
@@ -62,7 +70,7 @@ namespace BarcodeMonitor
                             Clipboard.SetText(mapp?.ItemCode ?? "NA");
                             if (Settings.Default.ReplaceBarcode)
                             {
-                                SendKeys.SendWait("{ESC}");
+                                SendKeys.SendWait("ff{ESC}");
                                 SendKeys.SendWait(mapp?.ItemCode);
                             }
                             line = "";
